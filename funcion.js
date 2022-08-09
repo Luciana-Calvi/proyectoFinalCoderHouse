@@ -53,16 +53,12 @@ function obtenerDiferenciaDeFechas(desde, hasta) {
 function costoYDescuentoPorDiaYDpto(dias, total) {
     if (dias < 15) {
         document.getElementById("mensaje").innerHTML = "EL TOTAL ES DE: $" + total + " POR DIA";
-       // alert("EL TOTAL ES DE: $" + total + " POR DIA");
     } else {
         document.getElementById("mensaje").innerHTML = "TIENE UN DESCUENTO DEL 15% SOBRE EL TOTAL";
-        //alert("TIENE UN DESCUENTO DEL 15% SOBRE EL TOTAL");
         let descuento = total * 0.15;
         let totalDescuento = total - descuento;
         document.getElementById("mensaje").innerHTML = "Total con el descuento es de: $" + totalDescuento;
-        //alert("Total con el descuento es de: $" + totalDescuento)
     }
-    //alert("MUCHAS GRACIAS POR ELEGIRNOS");
 }
 
 function costoPorDpto(numero, dias) {
@@ -88,16 +84,12 @@ function calcularPrecio() {
 
     if (fechaDesdeFormateada < fechaHoyFormateada) {
         document.getElementById("mensaje").innerHTML = "La fecha Desde no puede ser menor a la fecha de Hoy "+"\n"+"ELIJA OTRA FECHA POR FAVOR";
-        //alert("La fecha Desde no puede ser menor a la fecha de Hoy "+"\n"+"ELIJA OTRA FECHA POR FAVOR");
     } else if(fechaHastaFormateada < fechaHoyFormateada) {
         document.getElementById("mensaje").innerHTML = "La fecha Hasta no puede ser menor a la fecha de Hoy "+"\n"+"ELIJA OTRA FECHA POR FAVOR";
-        //alert("La fecha Hasta no puede ser menor a la fecha de Hoy "+"\n"+"ELIJA OTRA FECHA POR FAVOR");
     } else if (fechaHastaFormateada < fechaDesdeFormateada) {
         document.getElementById("mensaje").innerHTML = "La fecha Hasta no puede ser menor a la fecha de Desde "+"\n"+"ELIJA OTRA FECHA POR FAVOR";
-        //alert("La fecha Hasta no puede ser menor a la fecha de Desde "+"\n"+"ELIJA OTRA FECHA POR FAVOR");
     } else {
         let dias = obtenerDiferenciaDeFechas(fechaDesdeFormateada, fechaHastaFormateada);  
-        //let depto = Number(prompt("ELIJA UNO DE LOS TRES DEPARTAMENTOS POR FAVOR"));
         let depto = document.getElementById("departamento").value;
         console.log("departamento: " + depto);
         if ((depto >= 1) && (depto <= 3)) {
@@ -156,7 +148,6 @@ function controlarDisponibilidad(element, fD, fH, almacenarRegistro) {
 
     if ((fechaValidarX >= fechaInicioX) && (fechaValidarX < fechaFinX)) {
         document.getElementById("mensaje").innerHTML = "No se puede reservar, elija otra fecha";
-        //alert("No se puede reservar, elija otra fecha");
         almacenarRegistro = false;
         //return false; // en elfuturo tiene que retornar falso
     } else {
@@ -169,7 +160,6 @@ function controlarDisponibilidad(element, fD, fH, almacenarRegistro) {
 
         if ((fechaValidarX > fechaInicioX) && (fechaValidarX <= fechaFinX)) {
             document.getElementById("mensaje").innerHTML = "No se puede reservar, elija otra fecha";
-            //alert("No se puede reservar, elija otra fecha");
             //return false; // en elfuturo tiene que retornar falso
             almacenarRegistro = false;        
         } else {
@@ -179,8 +169,8 @@ function controlarDisponibilidad(element, fD, fH, almacenarRegistro) {
     }
     return almacenarRegistro;
 }
-
+/*
 function fechaIncluida(fechaDesde, fechaHasta, fechaValidar) {
 
     return false;
-}
+}*/
