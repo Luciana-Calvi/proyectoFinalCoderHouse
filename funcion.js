@@ -13,6 +13,8 @@ let departamentos = []
 
 let reservas = [];
 
+document.getElementById('botonCalcularPrecio').disabled = true;
+
 //SE UTILIZARÁ , MAS ADELANTE!!!
 /*class deptos{
     constructor(baño, habitaciones, detalle = "Tiene patio interno", churrasquera, cochera,wiFi, direcTV){
@@ -52,12 +54,12 @@ function obtenerDiferenciaDeFechas(desde, hasta) {
 
 function costoYDescuentoPorDiaYDpto(dias, total) {
     if (dias < 15) {
-        document.getElementById("mensaje").innerHTML = "EL TOTAL ES DE: $" + total + " POR DIA";
+        document.getElementById("costo").innerHTML = "EL TOTAL ES DE: $" + total + " POR DIA";
     } else {
-        document.getElementById("mensaje").innerHTML = "TIENE UN DESCUENTO DEL 15% SOBRE EL TOTAL";
+        document.getElementById("costo").innerHTML = "TIENE UN DESCUENTO DEL 15% SOBRE EL TOTAL";
         let descuento = total * 0.15;
         let totalDescuento = total - descuento;
-        document.getElementById("mensaje").innerHTML = "Total con el descuento es de: $" + totalDescuento;
+        document.getElementById("costo").innerHTML = "Total con el descuento es de: $" + totalDescuento;
     }
 }
 
@@ -72,6 +74,12 @@ function costoPorDpto(numero, dias) {
 }
 
 function calcularPrecio() {
+    
+    document.getElementById("costo").innerHTML = "";
+    document.getElementById("mensaje").innerHTML = "";
+
+    $('#miModal').modal('show'); // VISUALIZAR MODAL
+    
     document.getElementById("mensaje").innerHTML = '';
     let fechaDesde = obtenerFechaDesde();
     var fechaDesdeFormateada = new Date(fechaDesde);
@@ -99,6 +107,30 @@ function calcularPrecio() {
         }
     }   
 }
+
+
+function selecionarDepartamento(){
+    let departamento = document.getElementById('departamento').value;
+    if(departamento != 0){
+        document.getElementById('botonCalcularPrecio').disabled = false;
+    }else{
+        document.getElementById('botonCalcularPrecio').disabled = true;
+    }
+}
+
+
+let botonCalcularPrecio = document.querySelector('#botonCalcularPrecio');
+    botonCalcularPrecio.addEventListener('mouseover', () => {
+    botonCalcularPrecio.classList.toggle('btn-danger');
+});
+
+let botonResetear = document.querySelector('#botonResetear');
+    botonResetear.addEventListener('mouseover', () => {
+        botonResetear.classList.toggle('btn-success');
+    });
+
+let costo = document.querySelector('#costo');
+
 
 function intentoDeReserva(depto) {
     // un cliente solicita una reserva
