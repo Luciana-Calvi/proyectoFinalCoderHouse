@@ -80,6 +80,8 @@ function calcularPrecio() {
 
     $('#miModal').modal('show'); // VISUALIZAR MODAL
     
+    
+
     document.getElementById("mensaje").innerHTML = '';
     let fechaDesde = obtenerFechaDesde();
     var fechaDesdeFormateada = new Date(fechaDesde);
