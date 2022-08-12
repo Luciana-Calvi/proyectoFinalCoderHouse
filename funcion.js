@@ -10,7 +10,7 @@ let departamentos = []
     departamentos.push(new deptos( 1,  1000,  6)),
     departamentos.push(new deptos(2, 2000, 8)),
     departamentos.push(new deptos(3, 3000, 4));
-
+    
 let reservas = [];
 
 document.getElementById('botonCalcularPrecio').disabled = true;
@@ -68,7 +68,7 @@ function costoPorDpto(numero, dias) {
     for (const depto of departamentos) {
         if (depto.numero == numero) {
             resultado = depto.precio;
-        }
+        }      
     }     
     return dias * resultado;
 }
@@ -80,8 +80,6 @@ function calcularPrecio() {
 
     $('#miModal').modal('show'); // VISUALIZAR MODAL
     
-    
-
     document.getElementById("mensaje").innerHTML = '';
     let fechaDesde = obtenerFechaDesde();
     var fechaDesdeFormateada = new Date(fechaDesde);
@@ -163,6 +161,8 @@ function intentoDeReserva(depto) {
         reservas.push([{depto: depto, fechaDesde: fD, fechaHasta: fH}]);
         document.getElementById("mensaje").innerHTML = "SE HA ALMACENADO LA RESERVA";
     }
+    let enJSON = JSON.stringify(reservas);
+    localStorage.setItem("reservas",enJSON);
     // Resultado final
     console.log("El array queda:");
     console.log(reservas);
