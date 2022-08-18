@@ -10,8 +10,8 @@ let departamentos = []
     departamentos.push(new deptos( 1,  1000,  6)),
     departamentos.push(new deptos(2, 2000, 8)),
     departamentos.push(new deptos(3, 3000, 4));
-    
-let reservas = [];
+
+let reservas = JSON.parse(localStorage.getItem("reservas"));
 
 document.getElementById('botonCalcularPrecio').disabled = true;
 
