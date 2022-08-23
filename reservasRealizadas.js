@@ -1,9 +1,9 @@
 let reserva = JSON.parse(localStorage.getItem("reservas"));
 
 function llenarTabla(){
-    let contenido = '';
+   let contenido = '';
 
-    let dpto1 = JSON.parse(localStorage.getItem('reservas'));
+    let dpto1 = JSON.parse(localStorage.getItem("reservas"));
 
     contenido = contenido + '<tr>';
     contenido = contenido + '<th><div class="size text-center">DEPARTAMENTO</div></th>';
@@ -19,21 +19,9 @@ function llenarTabla(){
     });
     console.log(contenido);
 
+    
     document.querySelector('#tablaReservas').innerHTML = contenido;
-
-    /*
-    let cantidadDeReservas = dpto1.length;
-
-    for(let i = 0; i < cantidadDeReservas; i++){
-        let fila = document.createElement('tr');
-        let celda = document.createElement('td');
-       
-        let nodoTextoDpto = document.createTextNode(dpto1[i]);
-        fila.appendChild(celda.appendChild(nodoTextoDpto));
-
-        thead.appendChild(fila);
-        console.log("lo que hay en la celda",fila);
-    }
-    */
+    //let error = "error";
+    //error ? tablaReservas.innerHTML = error : tablaReservas.innerHTML = contenido;
 }
 llenarTabla();

@@ -12,7 +12,7 @@ let departamentos = []
     departamentos.push(new deptos(3, 3000, 4));
 
 let reservas = JSON.parse(localStorage.getItem("reservas"));
-
+reservas[0];
 document.getElementById('botonCalcularPrecio').disabled = true;
 
 //SE UTILIZARÁ , MAS ADELANTE!!!
@@ -108,14 +108,17 @@ function calcularPrecio() {
     }   
 }
 
-
+/*  <<--OPERACION TERNARIA-->> */
 function selecionarDepartamento(){
     let departamento = document.getElementById('departamento').value;
-    if(departamento != 0){
+   
+    departamento != 0 ? document.getElementById('botonCalcularPrecio').disabled = false : document.getElementById('botonCalcularPrecio').disabled = true;
+   
+    /* if(departamento != 0){
         document.getElementById('botonCalcularPrecio').disabled = false;
     }else{
         document.getElementById('botonCalcularPrecio').disabled = true;
-    }
+    }*/
 }
 
 
@@ -141,6 +144,7 @@ function intentoDeReserva(depto) {
     console.log("Cantidad de reservas actuales:");
     console.log(reservas.length);
     console.log(reservas[0]);
+    
 
     let reservasFiltradas = reservas.filter((reserva) => {
         if (reserva[0].depto == depto) {
@@ -165,8 +169,9 @@ function intentoDeReserva(depto) {
     localStorage.setItem("reservas",enJSON);
     // Resultado final
     console.log("El array queda:");
-    console.log(reservas);
+    console.table(reservas);
 }
+
 
 function controlarDisponibilidad(element, fD, fH, almacenarRegistro) {
     
@@ -205,6 +210,5 @@ function controlarDisponibilidad(element, fD, fH, almacenarRegistro) {
 }
 /*
 function fechaIncluida(fechaDesde, fechaHasta, fechaValidar) {
-
     return false;
 }*/
