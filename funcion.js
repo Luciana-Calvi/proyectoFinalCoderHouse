@@ -15,6 +15,11 @@ let reservas = JSON.parse(localStorage.getItem("reservas"));
 reservas[0];
 document.getElementById('botonCalcularPrecio').disabled = true;
 
+
+let departameto1 = document.getElementById('uno').value;
+let departamento2 = document.getElementById('dos').value;
+let departamento3 = document.getElementById('tres').value;
+
 //SE UTILIZARÁ , MAS ADELANTE!!!
 /*class deptos{
     constructor(baño, habitaciones, detalle = "Tiene patio interno", churrasquera, cochera,wiFi, direcTV){
@@ -54,12 +59,13 @@ function obtenerDiferenciaDeFechas(desde, hasta) {
 
 function costoYDescuentoPorDiaYDpto(dias, total) {
     if (dias < 15) {
-        document.getElementById("costo").innerHTML = "EL TOTAL ES DE: $" + total + " POR DIA";
+        costo = mostrarMensaje("EL TOTAL ES DE: $"+total, "¿Desea reservar?", "", 2);
+      
     } else {
-        document.getElementById("costo").innerHTML = "TIENE UN DESCUENTO DEL 15% SOBRE EL TOTAL";
+   
         let descuento = total * 0.15;
         let totalDescuento = total - descuento;
-        document.getElementById("costo").innerHTML = "Total con el descuento es de: $" + totalDescuento;
+        costo = mostrarMensaje("TIENE UN DESCUENTO DEL 15% SOBRE EL TOTAL","Total con el descuento es de: $"+totalDescuento, "¿Desea reservar?", 2);      
     }
 }
 
@@ -78,7 +84,7 @@ function calcularPrecio() {
     document.getElementById("costo").innerHTML = "";
     document.getElementById("mensaje").innerHTML = "";
 
-    $('#miModal').modal('show'); // VISUALIZAR MODAL
+   // $('#miModal').modal('show'); // VISUALIZAR MODAL
     
     document.getElementById("mensaje").innerHTML = '';
     let fechaDesde = obtenerFechaDesde();
@@ -90,12 +96,13 @@ function calcularPrecio() {
     let fechaHoy = obtenerFechaActual();
     var fechaHoyFormateada = new Date(fechaHoy);
 
+    
     if (fechaDesdeFormateada < fechaHoyFormateada) {
-        document.getElementById("mensaje").innerHTML = "La fecha Desde no puede ser menor a la fecha de Hoy "+"\n"+"ELIJA OTRA FECHA POR FAVOR";
+       mensaje = mostrarMensaje("", "La fecha Desde no puede ser menor a la fecha de Hoy ","",1 );
     } else if(fechaHastaFormateada < fechaHoyFormateada) {
-        document.getElementById("mensaje").innerHTML = "La fecha Hasta no puede ser menor a la fecha de Hoy "+"\n"+"ELIJA OTRA FECHA POR FAVOR";
+        mensaje = mostrarMensaje("", "La fecha Hasta no puede ser menor a la fecha de Hoy ","" , 1 );       
     } else if (fechaHastaFormateada < fechaDesdeFormateada) {
-        document.getElementById("mensaje").innerHTML = "La fecha Hasta no puede ser menor a la fecha de Desde "+"\n"+"ELIJA OTRA FECHA POR FAVOR";
+       mensaje = mostrarMensaje("", "La fecha Hasta no puede ser menor a la fecha de Desde ","", 1 );
     } else {
         let dias = obtenerDiferenciaDeFechas(fechaDesdeFormateada, fechaHastaFormateada);  
         let depto = document.getElementById("departamento").value;
@@ -108,20 +115,43 @@ function calcularPrecio() {
     }   
 }
 
-/*  <<--OPERACION TERNARIA-->> */
-function selecionarDepartamento(){
-    let departamento = document.getElementById('departamento').value;
-   
-    departamento != 0 ? document.getElementById('botonCalcularPrecio').disabled = false : document.getElementById('botonCalcularPrecio').disabled = true;
-   
-    /* if(departamento != 0){
-        document.getElementById('botonCalcularPrecio').disabled = false;
-    }else{
-        document.getElementById('botonCalcularPrecio').disabled = true;
-    }*/
+function mostrarMensaje(titulo, mensaje, url, tipo) {
+    switch (tipo) {
+        case 1:
+            Swal.fire({
+                icon: 'error',
+                title: mensaje,               
+              })        
+            break;
+        case 2:
+            Swal.fire({
+                title: titulo,
+                text: mensaje,
+                imageUrl:url,
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: 'Custom image',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ACEPTO '
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href ="file:///C:/Users/matia/Desktop/proyectoFinalCoderHouse/pago.html";
+                }
+              })
+        default:
+            break;
+    }
 }
 
+/*  <<--OPERACION TERNARIA-->> */
+function selecionarDepartamento(){
+    
+   let departamento = document.getElementById('departamento').value;
 
+   departamento != 0 ? document.getElementById('botonCalcularPrecio').disabled = false : document.getElementById('botonCalcularPrecio').disabled = true;
+   
 let botonCalcularPrecio = document.querySelector('#botonCalcularPrecio');
     botonCalcularPrecio.addEventListener('mouseover', () => {
     botonCalcularPrecio.classList.toggle('btn-danger');
@@ -134,7 +164,7 @@ let botonResetear = document.querySelector('#botonResetear');
 
 let costo = document.querySelector('#costo');
 
-
+}
 function intentoDeReserva(depto) {
     // un cliente solicita una reserva
     let fD = document.getElementById("fechaDesde").value;
@@ -145,7 +175,6 @@ function intentoDeReserva(depto) {
     console.log(reservas.length);
     console.log(reservas[0]);
     
-
     let reservasFiltradas = reservas.filter((reserva) => {
         if (reserva[0].depto == depto) {
             return true
@@ -160,10 +189,11 @@ function intentoDeReserva(depto) {
     reservasFiltradas.forEach(element => {
         almacenarRegistro = controlarDisponibilidad(element, fD, fH, almacenarRegistro);
     });
+   
     if (almacenarRegistro) {
         // Se hace el push en el array de reservas ya que se validaron fecha desde y hasta de la intensión de reserva 
         reservas.push([{depto: depto, fechaDesde: fD, fechaHasta: fH}]);
-        document.getElementById("mensaje").innerHTML = "SE HA ALMACENADO LA RESERVA";
+        
     }
     let enJSON = JSON.stringify(reservas);
     localStorage.setItem("reservas",enJSON);
@@ -186,19 +216,18 @@ function controlarDisponibilidad(element, fD, fH, almacenarRegistro) {
     fechaValidarX = fechaValidarX.getTime();
 
     if ((fechaValidarX >= fechaInicioX) && (fechaValidarX < fechaFinX)) {
-        document.getElementById("mensaje").innerHTML = "No se puede reservar, elija otra fecha";
+        mensaje = mostrarMensaje("", "No se puede reservar, elija otra fecha","", 1 );
+        
         almacenarRegistro = false;
         //return false; // en elfuturo tiene que retornar falso
     } else {
-        console.log("Si se puede reservar hasta acá");
-        //return true;
-        console.log("Se va a validar el HASTA ahora:");
         // Validamos la fecha desde (intensión de reserva)
         fechaValidarX = new Date(fH);
         fechaValidarX = fechaValidarX.getTime();
 
         if ((fechaValidarX > fechaInicioX) && (fechaValidarX <= fechaFinX)) {
-            document.getElementById("mensaje").innerHTML = "No se puede reservar, elija otra fecha";
+            mensaje = mostrarMensaje("", "No se puede reservar, elija otra fecha","", 1 );
+            
             //return false; // en elfuturo tiene que retornar falso
             almacenarRegistro = false;        
         } else {
@@ -208,7 +237,3 @@ function controlarDisponibilidad(element, fD, fH, almacenarRegistro) {
     }
     return almacenarRegistro;
 }
-/*
-function fechaIncluida(fechaDesde, fechaHasta, fechaValidar) {
-    return false;
-}*/

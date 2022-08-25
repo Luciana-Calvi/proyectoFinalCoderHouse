@@ -18,7 +18,7 @@ function llenarTabla(){
         contenido = contenido + '</tr>';
     });
     console.log(contenido);
-
+//meter then y cath aca
     
     document.querySelector('#tablaReservas').innerHTML = contenido;
     //let error = "error";
