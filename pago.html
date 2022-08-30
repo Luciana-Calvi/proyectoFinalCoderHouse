@@ -9,59 +9,115 @@
     <link href="estilo.css" rel="stylesheet" type="text/css">
   </head>
 <body>
-  <form action="#" class="credit-card-div">
-    <div class="panel panel-default" >
-     <div class="panel-heading">
-         
-          <div class="row ">
-                  <div class="col-md-12">
-                      <input type="text" class="form-control" placeholder="Enter Card Number" />
+  <div class="container">
+    <div class="card text-center">
+        <div class="card-header">
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                    <a class="nav-link active" aria-current="page" href="./index.html">
+                        <img src="./imagenesParaIndex/losNonos.webp" class="nonos">
+                    </a>
+                  <!--<a class="navbar-brand" href="#">Navbar</a>-->
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="./reservas.html">Reservas</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="./imagenesParaIndex/clima.html">Clima</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Informacion
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Contacto</a></li>
+                          <li><a class="dropdown-item" href="#">Direccion</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="#">Turismo</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                      </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
                   </div>
+                </div>
+              </nav>
+        </div>
+        <div class="card-body">
+          <form action="#" class="credit-card-div">
+            <div class="panel panel-default" >
+             <div class="panel-heading">
+                 
+                  <div class="row ">
+                          <div class="col-md-12">
+                              <input id="numTarjeta" type="number" class="form-control" placeholder="Numero de tarjeta" />
+                          </div>
+                      </div>
+                 <div class="row ">
+                          <div class="col-md-3 col-sm-3 col-xs-3">
+                              <span class="help-block text-muted small-font" > Mes de vencimiento</span>
+                              <input id="mes" type="text" class="form-control" placeholder="MM" />
+                          </div>
+                     <div class="col-md-3 col-sm-3 col-xs-3">
+                              <span class="help-block text-muted small-font" >  Año de vencimiento</span>
+                              <input id="año" type="text" class="form-control" placeholder="YY" />
+                          </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                              <span class="help-block text-muted small-font" >  CCV</span>
+                              <input id="ccv" type="text" class="form-control" placeholder="CCV" />
+                          </div>
+                     <div class="col-md-3 col-sm-3 col-xs-3">
+            <img id="pagos" src="" class="img-rounded" />
+                     </div>
+                      </div>
+                 <div class="row ">
+                          <div class="col-md-12 pad-adjust">
+            
+                              <input id="identidad" type="text" class="form-control" placeholder="Nombre y apellido" />
+                          </div>
+                      </div>
+                 <div class="row">
+            <div class="col-md-12 pad-adjust">
+                <div class="checkbox">
+                <label>
+                  <input type="checkbox" checked class="text-muted"> Save details for fast payments <a href="#"> learn how ?</a>
+                </label>
               </div>
-         <div class="row ">
-                  <div class="col-md-3 col-sm-3 col-xs-3">
-                      <span class="help-block text-muted small-font" > Expiry Month</span>
-                      <input type="text" class="form-control" placeholder="MM" />
-                  </div>
-             <div class="col-md-3 col-sm-3 col-xs-3">
-                      <span class="help-block text-muted small-font" >  Expiry Year</span>
-                      <input type="text" class="form-control" placeholder="YY" />
-                  </div>
-            <div class="col-md-3 col-sm-3 col-xs-3">
-                      <span class="help-block text-muted small-font" >  CCV</span>
-                      <input type="text" class="form-control" placeholder="CCV" />
-                  </div>
-             <div class="col-md-3 col-sm-3 col-xs-3">
-    <img id="pagos" src="" class="img-rounded" />
-             </div>
-              </div>
-         <div class="row ">
-                  <div class="col-md-12 pad-adjust">
-    
-                      <input type="text" class="form-control" placeholder="Name On The Card" />
-                  </div>
-              </div>
-         <div class="row">
-    <div class="col-md-12 pad-adjust">
-        <div class="checkbox">
-        <label>
-          <input type="checkbox" checked class="text-muted"> Save details for fast payments <a href="#"> learn how ?</a>
-        </label>
-      </div>
+            </div>
+                 </div>
+                   <div class="row ">
+                        <div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
+                             <button onclick="cancelarPago()" class="btn btn-danger" value="CANCELAR">CANCELAR</button>
+                          </div>
+                          <div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
+                              <button onclick="pagar()" class="btn btn-warning btn-block" value="PAGAR">PAGAR</button>
+                          </div>
+                      </div>
+                 
+                               </div>
+                          </div>
+            </form>
+            <div class="card-footer text-muted">
+              Footer
+          </div>
+        </div>
     </div>
-         </div>
-           <div class="row ">
-                <div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
-                     <input type="submit"  class="btn btn-danger" value="CANCEL" />
-                  </div>
-                  <div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
-                      <input type="submit"  class="btn btn-warning btn-block" value="PAY NOW" />
-                  </div>
-              </div>
-         
-                       </div>
-                  </div>
-    </form>
+              
+    </div>
+    <script src="formasDePago.js"></script>
+    <script src="./js/sweetalert2.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>

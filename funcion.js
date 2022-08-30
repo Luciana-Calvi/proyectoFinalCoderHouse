@@ -6,19 +6,35 @@ class deptos{
     }
 }
 
-let departamentos = []
-    departamentos.push(new deptos( 1,  1000,  6)),
+let departamentos = [];
+let departameto1;
+let departamento2;
+let departamento3;
+   /* departamentos.push(new deptos( 1,  1000,  6)),
     departamentos.push(new deptos(2, 2000, 8)),
-    departamentos.push(new deptos(3, 3000, 4));
+    departamentos.push(new deptos(3, 3000, 4));*/
+
+recuperarJsonDeptos();
 
 let reservas = JSON.parse(localStorage.getItem("reservas"));
-reservas[0];
+//reservas[0];
 document.getElementById('botonCalcularPrecio').disabled = true;
 
 
-let departameto1 = document.getElementById('uno').value;
-let departamento2 = document.getElementById('dos').value;
-let departamento3 = document.getElementById('tres').value;
+departameto1 = document.getElementById('uno').value;
+departamento2 = document.getElementById('dos').value;
+departamento3 = document.getElementById('tres').value;
+    
+
+async function recuperarJsonDeptos() {
+    departamentos = await fetch('./departamento.json')
+    .then((resp) => resp.json())
+    .then((departamento) => {
+        return departamento;
+    });
+    console.log(departamentos);
+
+}
 
 //SE UTILIZARÁ , MAS ADELANTE!!!
 /*class deptos{

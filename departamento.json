@@ -1,0 +1,17 @@
+[
+    {
+        "deptos":"1",
+        "precio":"1000",
+        "capacidadPersonas":"6"
+    },
+    {
+        "deptos":"2",
+        "precio":"2000",
+        "capacidadPersonas":"8"
+    },
+    {
+        "deptos":"3",
+        "precio":"3000",
+        "capacidadPersonas":"4"
+    }
+]
