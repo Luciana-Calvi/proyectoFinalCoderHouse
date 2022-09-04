@@ -7,19 +7,23 @@ class deptos{
 }
 
 let departamentos = [];
+recuperarJsonDeptos();
+
 let departameto1;
 let departamento2;
 let departamento3;
-   /* departamentos.push(new deptos( 1,  1000,  6)),
-    departamentos.push(new deptos(2, 2000, 8)),
-    departamentos.push(new deptos(3, 3000, 4));*/
 
-recuperarJsonDeptos();
+/*
+let departamentosMati = [];
+departamentosMati.push(new deptos(1, 1000, 6)),
+departamentosMati.push(new deptos(2, 2000, 8)),
+departamentosMati.push(new deptos(3, 3000, 4));
+console.log("Departamentos Mati:");
+console.log(departamentosMati);
+*/
 
 let reservas = JSON.parse(localStorage.getItem("reservas"));
-//reservas[0];
 document.getElementById('botonCalcularPrecio').disabled = true;
-
 
 departameto1 = document.getElementById('uno').value;
 departamento2 = document.getElementById('dos').value;
@@ -27,13 +31,15 @@ departamento3 = document.getElementById('tres').value;
     
 
 async function recuperarJsonDeptos() {
-    departamentos = await fetch('./departamento.json')
+    let array = [];
+    await fetch('./departamento.json')
     .then((resp) => resp.json())
-    .then((departamento) => {
-        return departamento;
+    .then((depto) => {
+        for (const [key, value] of Object.entries(depto)) {
+            array.push(new deptos(parseInt(value.numero), parseInt(value.precio), parseInt(value.capacidad)));
+        }
+        departamentos = array;
     });
-    console.log(departamentos);
-
 }
 
 //SE UTILIZARÁ , MAS ADELANTE!!!
@@ -76,9 +82,7 @@ function obtenerDiferenciaDeFechas(desde, hasta) {
 function costoYDescuentoPorDiaYDpto(dias, total) {
     if (dias < 15) {
         costo = mostrarMensaje("EL TOTAL ES DE: $"+total, "¿Desea reservar?", "", 2);
-      
     } else {
-   
         let descuento = total * 0.15;
         let totalDescuento = total - descuento;
         costo = mostrarMensaje("TIENE UN DESCUENTO DEL 15% SOBRE EL TOTAL","Total con el descuento es de: $"+totalDescuento, "¿Desea reservar?", 2);      
@@ -96,7 +100,6 @@ function costoPorDpto(numero, dias) {
 }
 
 function calcularPrecio() {
-    
     document.getElementById("costo").innerHTML = "";
     document.getElementById("mensaje").innerHTML = "";
 
@@ -112,7 +115,6 @@ function calcularPrecio() {
     let fechaHoy = obtenerFechaActual();
     var fechaHoyFormateada = new Date(fechaHoy);
 
-    
     if (fechaDesdeFormateada < fechaHoyFormateada) {
        mensaje = mostrarMensaje("", "La fecha Desde no puede ser menor a la fecha de Hoy ","",1 );
     } else if(fechaHastaFormateada < fechaHoyFormateada) {
@@ -153,7 +155,7 @@ function mostrarMensaje(titulo, mensaje, url, tipo) {
                 confirmButtonText: 'ACEPTO '
               }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href ="file:///C:/Users/matia/Desktop/proyectoFinalCoderHouse/pago.html";
+                    window.location.href ="./pago.html";
                 }
               })
         default:
@@ -188,23 +190,24 @@ function intentoDeReserva(depto) {
     // se almacena en matriz
     // reservas.push([{dpto: depto, fechaDesde: fD, fechaHasta: fH}]);
     console.log("Cantidad de reservas actuales:");
-    console.log(reservas.length);
-    console.log(reservas[0]);
-    
-    let reservasFiltradas = reservas.filter((reserva) => {
-        if (reserva[0].depto == depto) {
-            return true
-        } else {
-            return false;
-        }
-    });
-    console.log("filtrados:");
-    console.log(reservasFiltradas); // nueva matriz
+    console.log(reservas);
     
     let almacenarRegistro = true;
-    reservasFiltradas.forEach(element => {
-        almacenarRegistro = controlarDisponibilidad(element, fD, fH, almacenarRegistro);
-    });
+    if (reservas != null) {
+        let reservasFiltradas = reservas.filter((reserva) => {
+            if (reserva[0].depto == depto) {
+                return true
+            } else {
+                return false;
+            }
+        });
+        console.log("filtrados:");
+        console.log(reservasFiltradas); // nueva matriz
+        
+        reservasFiltradas.forEach(element => {
+            almacenarRegistro = controlarDisponibilidad(element, fD, fH, almacenarRegistro);
+        });
+    }
    
     if (almacenarRegistro) {
         // Se hace el push en el array de reservas ya que se validaron fecha desde y hasta de la intensión de reserva 
