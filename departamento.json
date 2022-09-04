@@ -1,17 +1,17 @@
 [
     {
-        "deptos":"1",
-        "precio":"1000",
-        "capacidadPersonas":"6"
+        "numero": "1",
+        "precio": "1000",
+        "capacidad": "6"
     },
     {
-        "deptos":"2",
-        "precio":"2000",
-        "capacidadPersonas":"8"
+        "numero": "2",
+        "precio": "2000",
+        "capacidad": "8"
     },
     {
-        "deptos":"3",
-        "precio":"3000",
-        "capacidadPersonas":"4"
+        "numero": "3",
+        "precio": "3000",
+        "capacidad": "4"
     }
 ]
