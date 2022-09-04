@@ -23,6 +23,9 @@ console.log(departamentosMati);
 */
 
 let reservas = JSON.parse(localStorage.getItem("reservas"));
+if (reservas== null) {
+    reservas = [];
+}
 document.getElementById('botonCalcularPrecio').disabled = true;
 
 departameto1 = document.getElementById('uno').value;
@@ -124,7 +127,6 @@ function calcularPrecio() {
     } else {
         let dias = obtenerDiferenciaDeFechas(fechaDesdeFormateada, fechaHastaFormateada);  
         let depto = document.getElementById("departamento").value;
-        console.log("departamento: " + depto);
         if ((depto >= 1) && (depto <= 3)) {
             let total = costoPorDpto(depto, dias);
             costoYDescuentoPorDiaYDpto(dias, total);
@@ -167,21 +169,19 @@ function mostrarMensaje(titulo, mensaje, url, tipo) {
 function selecionarDepartamento(){
     
    let departamento = document.getElementById('departamento').value;
-
    departamento != 0 ? document.getElementById('botonCalcularPrecio').disabled = false : document.getElementById('botonCalcularPrecio').disabled = true;
    
-let botonCalcularPrecio = document.querySelector('#botonCalcularPrecio');
+    let botonCalcularPrecio = document.querySelector('#botonCalcularPrecio');
     botonCalcularPrecio.addEventListener('mouseover', () => {
-    botonCalcularPrecio.classList.toggle('btn-danger');
-});
+        botonCalcularPrecio.classList.toggle('btn-danger');
+    });
 
-let botonResetear = document.querySelector('#botonResetear');
+    let botonResetear = document.querySelector('#botonResetear');
     botonResetear.addEventListener('mouseover', () => {
         botonResetear.classList.toggle('btn-success');
     });
 
-let costo = document.querySelector('#costo');
-
+    let costo = document.querySelector('#costo');
 }
 function intentoDeReserva(depto) {
     // un cliente solicita una reserva
@@ -189,8 +189,6 @@ function intentoDeReserva(depto) {
     let fH = document.getElementById("fechaHasta").value;;
     // se almacena en matriz
     // reservas.push([{dpto: depto, fechaDesde: fD, fechaHasta: fH}]);
-    console.log("Cantidad de reservas actuales:");
-    console.log(reservas);
     
     let almacenarRegistro = true;
     if (reservas != null) {
@@ -201,9 +199,6 @@ function intentoDeReserva(depto) {
                 return false;
             }
         });
-        console.log("filtrados:");
-        console.log(reservasFiltradas); // nueva matriz
-        
         reservasFiltradas.forEach(element => {
             almacenarRegistro = controlarDisponibilidad(element, fD, fH, almacenarRegistro);
         });
@@ -212,7 +207,6 @@ function intentoDeReserva(depto) {
     if (almacenarRegistro) {
         // Se hace el push en el array de reservas ya que se validaron fecha desde y hasta de la intensión de reserva 
         reservas.push([{depto: depto, fechaDesde: fD, fechaHasta: fH}]);
-        
     }
     let enJSON = JSON.stringify(reservas);
     localStorage.setItem("reservas",enJSON);
