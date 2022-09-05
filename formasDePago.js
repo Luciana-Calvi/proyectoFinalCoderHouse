@@ -36,7 +36,7 @@ function mostrarMensaje(mensaje, tipo) {
                 confirmButtonText: 'ACEPTO '
               }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href ="file:///C:/Users/matia/Desktop/proyectoFinalCoderHouse/index.html"
+                    window.location.href ="/index.html"
                 }
             })
         default:
