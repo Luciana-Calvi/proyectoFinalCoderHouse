@@ -13,15 +13,6 @@ let departameto1;
 let departamento2;
 let departamento3;
 
-/*
-let departamentosMati = [];
-departamentosMati.push(new deptos(1, 1000, 6)),
-departamentosMati.push(new deptos(2, 2000, 8)),
-departamentosMati.push(new deptos(3, 3000, 4));
-console.log("Departamentos Mati:");
-console.log(departamentosMati);
-*/
-
 let reservas = JSON.parse(localStorage.getItem("reservas"));
 if (reservas== null) {
     reservas = [];
@@ -44,19 +35,6 @@ async function recuperarJsonDeptos() {
         departamentos = array;
     });
 }
-
-//SE UTILIZARÁ , MAS ADELANTE!!!
-/*class deptos{
-    constructor(baño, habitaciones, detalle = "Tiene patio interno", churrasquera, cochera,wiFi, direcTV){
-        this.baño = baño;
-        this.habitaciones = habitaciones;
-        this.detalle = detalle = "Tiene patio interno";
-        this.churrasquera = churrasquera;
-        this.cochera = cochera;
-        this.wiFi = wiFi;
-        this.direcTV = direcTV;
-    }
-}*/
 
 function obtenerFechaActual() {
     let hoy = new Date();
@@ -160,10 +138,20 @@ function mostrarMensaje(titulo, mensaje, url, tipo) {
                     window.location.href ="./pago.html";
                 }
               })
-        default:
             break;
+        case 3:
+            Swal.fire({
+                position: 'top-end',
+                icon: '',
+                title: mensaje,
+                showConfirmButton: false,
+                timer: 3500
+              })
+              default:
+                break;
     }
 }
+
 
 /*  <<--OPERACION TERNARIA-->> */
 function selecionarDepartamento(){
