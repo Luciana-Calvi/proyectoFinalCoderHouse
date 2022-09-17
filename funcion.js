@@ -14,7 +14,7 @@ let departamento2;
 let departamento3;
 
 let reservas = JSON.parse(localStorage.getItem("reservas"));
-if (reservas== null) {
+if (reservas == null) {
     reservas = [];
 }
 document.getElementById('botonCalcularPrecio').disabled = true;
@@ -22,7 +22,7 @@ document.getElementById('botonCalcularPrecio').disabled = true;
 departameto1 = document.getElementById('uno').value;
 departamento2 = document.getElementById('dos').value;
 departamento3 = document.getElementById('tres').value;
-    
+ 
 
 async function recuperarJsonDeptos() {
     let array = [];
@@ -62,12 +62,13 @@ function obtenerDiferenciaDeFechas(desde, hasta) {
 
 function costoYDescuentoPorDiaYDpto(dias, total) {
     if (dias < 15) {
-        costo = mostrarMensaje("EL TOTAL ES DE: $"+total, "¿Desea reservar?", "", 2);
+        mostrarMensaje("EL TOTAL ES DE: $" + total, "¿Desea reservar?", "", 2);
     } else {
         let descuento = total * 0.15;
-        let totalDescuento = total - descuento;
-        costo = mostrarMensaje("TIENE UN DESCUENTO DEL 15% SOBRE EL TOTAL","Total con el descuento es de: $"+totalDescuento, "¿Desea reservar?", 2);      
+        total = total - descuento;
+        mostrarMensaje("TIENE UN DESCUENTO DEL 15% SOBRE EL TOTAL","Total con el descuento es de: $" + total, "", 2);      
     }
+    // nuevo localstorage que contenga sólo el total a pagar = total
 }
 
 function costoPorDpto(numero, dias) {
@@ -81,15 +82,15 @@ function costoPorDpto(numero, dias) {
 }
 
 function calcularPrecio() {
-    document.getElementById("costo").innerHTML = "";
-    document.getElementById("mensaje").innerHTML = "";
+    //document.getElementById("costo").innerHTML = "";
+    //document.getElementById("mensaje").innerHTML = "";
 
    // $('#miModal').modal('show'); // VISUALIZAR MODAL
     
-    document.getElementById("mensaje").innerHTML = '';
+   // document.getElementById("mensaje").innerHTML = '';
     let fechaDesde = obtenerFechaDesde();
     var fechaDesdeFormateada = new Date(fechaDesde);
-    
+
     let fechaHasta = obtenerFechaHasta();
     var fechaHastaFormateada = new Date(fechaHasta);
 
@@ -102,13 +103,15 @@ function calcularPrecio() {
         mensaje = mostrarMensaje("", "La fecha Hasta no puede ser menor a la fecha de Hoy ","" , 1 );       
     } else if (fechaHastaFormateada < fechaDesdeFormateada) {
        mensaje = mostrarMensaje("", "La fecha Hasta no puede ser menor a la fecha de Desde ","", 1 );
+    } else if((fechaDesdeFormateada == 'Invalid Date') || (fechaHastaFormateada == 'Invalid Date')){
+        mensaje = mostrarMensaje("", "Debe elegir una fecha por favor ","", 1 );
     } else {
         let dias = obtenerDiferenciaDeFechas(fechaDesdeFormateada, fechaHastaFormateada);  
         let depto = document.getElementById("departamento").value;
         if ((depto >= 1) && (depto <= 3)) {
             let total = costoPorDpto(depto, dias);
             costoYDescuentoPorDiaYDpto(dias, total);
-            intentoDeReserva(depto);
+            // intentoDeReserva(depto);
         }
     }   
 }
@@ -138,20 +141,10 @@ function mostrarMensaje(titulo, mensaje, url, tipo) {
                     window.location.href ="./pago.html";
                 }
               })
+        default:
             break;
-        case 3:
-            Swal.fire({
-                position: 'top-end',
-                icon: '',
-                title: mensaje,
-                showConfirmButton: false,
-                timer: 3500
-              })
-              default:
-                break;
     }
 }
-
 
 /*  <<--OPERACION TERNARIA-->> */
 function selecionarDepartamento(){
@@ -168,8 +161,6 @@ function selecionarDepartamento(){
     botonResetear.addEventListener('mouseover', () => {
         botonResetear.classList.toggle('btn-success');
     });
-
-    let costo = document.querySelector('#costo');
 }
 function intentoDeReserva(depto) {
     // un cliente solicita una reserva
@@ -194,8 +185,10 @@ function intentoDeReserva(depto) {
    
     if (almacenarRegistro) {
         // Se hace el push en el array de reservas ya que se validaron fecha desde y hasta de la intensión de reserva 
+        // en el localstorage nuevo, agregar: depto, fD, fH
         reservas.push([{depto: depto, fechaDesde: fD, fechaHasta: fH}]);
     }
+    
     let enJSON = JSON.stringify(reservas);
     localStorage.setItem("reservas",enJSON);
     // Resultado final
