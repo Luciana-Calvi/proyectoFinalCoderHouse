@@ -93,7 +93,7 @@ function costoYDescuentoPorDiaYDpto(dias, total) {
         total = total - descuento;
         mostrarMensaje("TIENE UN DESCUENTO DEL 15% SOBRE EL TOTAL","Total con el descuento es de: $" + total, "", 2);      
     }
-    // nuevo localstorage que contenga sólo el total a pagar = total
+    return total; // Se almacenará en la reserva temporal (hasta que abone)
 }
 
 function costoPorDpto(numero, dias) {
@@ -135,8 +135,8 @@ function calcularPrecio() {
         let depto = document.getElementById("departamento").value;
         if ((depto >= 1) && (depto <= 3)) {
             let total = costoPorDpto(depto, dias);
-            costoYDescuentoPorDiaYDpto(dias, total);
-            intentoDeReserva(depto);
+            total = costoYDescuentoPorDiaYDpto(dias, total);
+            intentoDeReserva(depto, total);
         }
     }   
 }
@@ -187,7 +187,7 @@ function selecionarDepartamento(){
         botonResetear.classList.toggle('btn-success');
     });
 }
-function intentoDeReserva(depto) {
+function intentoDeReserva(depto, total) {
     // un cliente solicita una reserva
     let fD = document.getElementById("fechaDesde").value;
     let fH = document.getElementById("fechaHasta").value;;
@@ -211,11 +211,12 @@ function intentoDeReserva(depto) {
     if (almacenarRegistro) {
         // Se hace el push en el array de reservas ya que se validaron fecha desde y hasta de la intensión de reserva 
         // en el localstorage nuevo, agregar: depto, fD, fH
-        reservas.push([{depto: depto, fechaDesde: fD, fechaHasta: fH}]);
+        // reservas.push([{depto: depto, fechaDesde: fD, fechaHasta: fH}]);
+        reservaTmpDepto.push([{depto: depto, fechaDesde: fD, fechaHasta: fH, total: total}]);
     }
     
-    let enJSON = JSON.stringify(reservas);
-    localStorage.setItem("reservas",enJSON);
+    let enJSON = JSON.stringify(reservaTmpDepto[0]);
+    localStorage.setItem("reservaTemporal", enJSON);
     // Resultado final
     console.log("El array queda:");
     console.table(reservas);
