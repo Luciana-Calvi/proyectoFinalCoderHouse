@@ -18,6 +18,13 @@ function validarTarjeta(){
         mostrarMensaje("Ingrese nombre y apellido por favor",1);
     }else{
         mostrarMensaje("Su reserva fue realizada con exito",2);
+        // acá tengo que almacenar en el "reservas"
+        /*
+        reservas.push([{depto: depto, fechaDesde: fD, fechaHasta: fH}]);
+
+        let enJSON = JSON.stringify(reservas);
+        localStorage.setItem("reservas", enJSON);
+        */
     }
 }
 
@@ -50,3 +57,6 @@ function pagar() {
 function cancelarPago(){
     mostrarMensaje("Su reserva fue cancelada", 2);
 }
+
+let reservaTemporal = JSON.parse(localStorage.getItem("reservaTemporal"));
+document.getElementById("totalAbonar").innerHTML = "$" + reservaTemporal[0].total;
