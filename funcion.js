@@ -6,8 +6,24 @@ class deptos{
     }
 }
 
+class reservaTemporalDepto{
+    constructor(numero, fechaDesde, fechaHasta, total){
+        this.numero = numero;
+        this.fechaDesde = fechaDesde;
+        this.fechaHasta = fechaHasta;
+        this.total = total;
+    }
+}
+
 let departamentos = [];
+console.log("Como se crea:");
+console.log(departamentos);
 recuperarJsonDeptos();
+
+let reservaTmpDepto = [];
+console.log("Como se crea (tmp):");
+console.log(reservaTmpDepto);
+recuperarReservaTmpDepto();
 
 let departameto1;
 let departamento2;
@@ -22,7 +38,20 @@ document.getElementById('botonCalcularPrecio').disabled = true;
 departameto1 = document.getElementById('uno').value;
 departamento2 = document.getElementById('dos').value;
 departamento3 = document.getElementById('tres').value;
- 
+
+async function recuperarReservaTmpDepto() {
+    let array = [];
+    await fetch('./reservaTemporalDepto.json')
+    .then((resp) => resp.json())
+    .then((reserva) => {
+        for (const [key, value] of Object.entries(reserva)) {
+            array.push(new reservaTemporalDepto(parseInt(value.numero), parseInt(value.fechaDesde), parseInt(value.fechaHasta), parseInt(value.total)));
+        }
+        reservaTemporalDepto = array;
+        console.log("Como queda (tmp):");
+        console.log(reservaTemporalDepto);
+    });
+}
 
 async function recuperarJsonDeptos() {
     let array = [];
@@ -33,6 +62,8 @@ async function recuperarJsonDeptos() {
             array.push(new deptos(parseInt(value.numero), parseInt(value.precio), parseInt(value.capacidad)));
         }
         departamentos = array;
+        console.log("Como debe quedar:");
+        console.log(departamentos);
     });
 }
 
@@ -111,7 +142,7 @@ function calcularPrecio() {
         if ((depto >= 1) && (depto <= 3)) {
             let total = costoPorDpto(depto, dias);
             costoYDescuentoPorDiaYDpto(dias, total);
-            // intentoDeReserva(depto);
+            intentoDeReserva(depto);
         }
     }   
 }
