@@ -15,14 +15,12 @@ class reservaTemporalDepto{
     }
 }
 
+// Almacena la información de los departamentos
 let departamentos = [];
-console.log("Como se crea:");
-console.log(departamentos);
 recuperarJsonDeptos();
 
+// Almacena la información de la reserva temporal del departamento (hasta que se abona)
 let reservaTmpDepto = [];
-console.log("Como se crea (tmp):");
-console.log(reservaTmpDepto);
 recuperarReservaTmpDepto();
 
 let departameto1;
@@ -48,8 +46,6 @@ async function recuperarReservaTmpDepto() {
             array.push(new reservaTemporalDepto(parseInt(value.numero), parseInt(value.fechaDesde), parseInt(value.fechaHasta), parseInt(value.total)));
         }
         reservaTemporalDepto = array;
-        console.log("Como queda (tmp):");
-        console.log(reservaTemporalDepto);
     });
 }
 
@@ -62,8 +58,6 @@ async function recuperarJsonDeptos() {
             array.push(new deptos(parseInt(value.numero), parseInt(value.precio), parseInt(value.capacidad)));
         }
         departamentos = array;
-        console.log("Como debe quedar:");
-        console.log(departamentos);
     });
 }
 
