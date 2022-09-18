@@ -58,7 +58,6 @@ function mostrarMensaje(mensaje, tipo) {
 }
 
 
-
 function cancelarPago(){
     mostrarMensaje("Su reserva fue cancelada", 2);
 }

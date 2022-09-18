@@ -1,6 +1,6 @@
 class deptos{
     constructor(numero,precio,capacidad){
-        this.numero =numero;
+        this.numero = numero;
         this.precio = precio;
         this.capacidad = capacidad
     }
@@ -107,12 +107,7 @@ function costoPorDpto(numero, dias) {
 }
 
 function calcularPrecio() {
-    //document.getElementById("costo").innerHTML = "";
-    //document.getElementById("mensaje").innerHTML = "";
-
-   // $('#miModal').modal('show'); // VISUALIZAR MODAL
-    
-   // document.getElementById("mensaje").innerHTML = '';
+   
     let fechaDesde = obtenerFechaDesde();
     var fechaDesdeFormateada = new Date(fechaDesde);
 
@@ -191,8 +186,7 @@ function intentoDeReserva(depto, total) {
     // un cliente solicita una reserva
     let fD = document.getElementById("fechaDesde").value;
     let fH = document.getElementById("fechaHasta").value;;
-    // se almacena en matriz
-    // reservas.push([{dpto: depto, fechaDesde: fD, fechaHasta: fH}]);
+    
     
     let almacenarRegistro = true;
     if (reservas != null) {
@@ -236,7 +230,7 @@ function controlarDisponibilidad(element, fD, fH, almacenarRegistro) {
         mensaje = mostrarMensaje("", "No se puede reservar, elija otra fecha","", 1 );
         
         almacenarRegistro = false;
-        //return false; // en elfuturo tiene que retornar falso
+        
     } else {
         // Validamos la fecha desde (intensión de reserva)
         fechaValidarX = new Date(fH);
@@ -245,11 +239,10 @@ function controlarDisponibilidad(element, fD, fH, almacenarRegistro) {
         if ((fechaValidarX > fechaInicioX) && (fechaValidarX <= fechaFinX)) {
             mensaje = mostrarMensaje("", "No se puede reservar, elija otra fecha","", 1 );
             
-            //return false; // en elfuturo tiene que retornar falso
             almacenarRegistro = false;        
         } else {
             console.log("Si se puede reservar");
-            //return true;
+            
         }
     }
     return almacenarRegistro;
