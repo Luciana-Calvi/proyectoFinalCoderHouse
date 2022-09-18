@@ -217,9 +217,6 @@ function intentoDeReserva(depto, total) {
     
     let enJSON = JSON.stringify(reservaTmpDepto[0]);
     localStorage.setItem("reservaTemporal", enJSON);
-    // Resultado final
-    console.log("El array queda:");
-    console.table(reservas);
 }
 
 

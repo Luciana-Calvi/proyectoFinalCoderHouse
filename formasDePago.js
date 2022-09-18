@@ -16,15 +16,21 @@ function validarTarjeta(){
         mostrarMensaje("Ingrese solo tres digitos para el ccv por favor",1);
     }else if((identidad =="")){
         mostrarMensaje("Ingrese nombre y apellido por favor",1);
-    }else{
-        mostrarMensaje("Su reserva fue realizada con exito",2);
+    } else {
         // acá tengo que almacenar en el "reservas"
-        /*
-        reservas.push([{depto: depto, fechaDesde: fD, fechaHasta: fH}]);
+        let reservas = JSON.parse(localStorage.getItem("reservas"));
+        if (reservas == null) {
+            reservas = [];
+        }
 
+        // reservas.push([{precio: total, depto: depto, fechaDesde: fD, fechaHasta: fH}]);
+        reservas.push([{depto: reservaTemporal[0].depto, fechaDesde: reservaTemporal[0].fechaDesde, fechaHasta: reservaTemporal[0].fechaHasta}]);
+        console.log(reservas);
         let enJSON = JSON.stringify(reservas);
         localStorage.setItem("reservas", enJSON);
-        */
+        console.log(reservas),
+        
+        mostrarMensaje("Su reserva fue realizada con exito",2);
     }
 }
 
@@ -33,7 +39,7 @@ function mostrarMensaje(mensaje, tipo) {
         case 1:
             Swal.fire({
                 icon: 'error',
-                title: mensaje,               
+                title: mensaje               
               })        
             break;
         case 2:
@@ -51,9 +57,8 @@ function mostrarMensaje(mensaje, tipo) {
     }
 }
 
-function pagar() {
-    validarTarjeta();
-}
+
+
 function cancelarPago(){
     mostrarMensaje("Su reserva fue cancelada", 2);
 }
